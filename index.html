@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Operation Myla Smile</title>
+<style>
+:root{--bg:#121828;--y:#ffd93b;--b:#3a7be0;--t:#f4f6ff}
+*{box-sizing:border-box;margin:0}
+body{background:radial-gradient(circle at 50% 0,#1d2a4d,var(--bg) 60%);min-height:100vh;color:var(--t);font-family:"Trebuchet MS",system-ui,sans-serif;text-align:center;overflow-x:hidden}
+.screen{display:none;min-height:100vh;padding:22px 14px 190px;flex-direction:column;align-items:center;justify-content:flex-start}
+.screen.active{display:flex;animation:fadeIn .5s both}
+@keyframes fadeIn{from{opacity:0;transform:translateY(14px)}}
+.card{margin-top:4vh;max-width:560px;width:100%;padding:24px 20px;border-radius:26px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 12px 34px #0006}
+.big{font-size:clamp(22px,6vw,34px);color:var(--y);font-weight:900;line-height:1.3}
+.txt{font-size:clamp(16px,4.3vw,20px);line-height:1.55;margin-top:10px}
+.hide{display:none}
+button{font:inherit;font-weight:800;border:0;border-radius:16px;padding:14px 18px;margin:7px 4px;cursor:pointer;background:var(--y);color:#1a1a2e;box-shadow:0 5px 0 #b8971a;-webkit-tap-highlight-color:transparent}
+button:active{transform:translateY(4px);box-shadow:0 1px 0 #b8971a}
+button.alt{background:var(--b);color:#fff;box-shadow:0 5px 0 #24559f}
+button.large{font-size:19px;padding:17px 24px;margin-top:20px}
+#msg{min-height:56px;margin:16px 0 8px;font-weight:800;color:var(--y);font-size:clamp(17px,4.6vw,22px)}
+.photo{width:min(70vw,290px);border-radius:22px;border:6px solid var(--y);box-shadow:0 12px 34px #000a;margin:16px 0 4px;display:block;margin-left:auto;margin-right:auto}
+.photo.show{animation:reveal 1.6s cubic-bezier(.2,.8,.2,1) both}
+@keyframes reveal{from{opacity:0;transform:scale(.4);filter:blur(10px)}}
+#crew{position:fixed;left:0;right:0;bottom:0;display:flex;flex-wrap:wrap-reverse;justify-content:center;align-items:flex-end;padding:0 4px 6px;pointer-events:none;z-index:4}
+.m{width:clamp(56px,15vw,90px);position:relative;margin:0 -2px;animation:bob 2s ease-in-out infinite}
+.m svg{width:100%;display:block;overflow:visible}
+.armL,.armR{transform-box:fill-box;transform-origin:50% 0}
+.bubble{position:absolute;left:50%;top:-30px;transform:translateX(-50%);background:#fff;color:#111;font-weight:900;font-size:13px;padding:4px 9px;border-radius:12px;white-space:nowrap}
+@keyframes bob{50%{transform:translateY(-4px)}}
+.runL{animation:runL 1.1s ease-out both,bob 2s 1.1s infinite}
+@keyframes runL{from{transform:translateX(-110vw)}60%{transform:translateY(-18px)}}
+.stumbleR{animation:stR 1.4s ease-out both,bob 2s 1.4s infinite}
+@keyframes stR{from{transform:translateX(110vw)}50%{transform:translateX(10px) rotate(25deg)}70%{transform:rotate(-15deg)}}
+.popUp{animation:popUp .9s cubic-bezier(.3,1.5,.5,1) both,bob 2s .9s infinite}
+@keyframes popUp{from{transform:translateY(120vh)}}
+.jump{animation:jump .45s ease-in-out 4}
+@keyframes jump{50%{transform:translateY(-36px)}}
+.panic{animation:panic .12s linear infinite}
+@keyframes panic{25%{transform:translate(-4px,-3px) rotate(-5deg)}75%{transform:translate(4px,-3px) rotate(5deg)}}
+.dance{animation:dance .6s ease-in-out infinite}
+@keyframes dance{25%{transform:rotate(-10deg) translateY(-8px)}75%{transform:rotate(10deg) translateY(-8px)}}
+.flip{animation:flip 1s ease-in-out 2}
+@keyframes flip{to{transform:translateY(-30px) rotate(360deg)}}
+.squish{animation:squish .7s ease-in-out 3}
+@keyframes squish{50%{transform:scale(1.15,.88)}}
+.wave .armR{animation:wv .35s ease-in-out infinite alternate}
+@keyframes wv{from{transform:rotate(-150deg)}to{transform:rotate(-100deg)}}
+.cheer .armL{animation:chL .3s infinite alternate}
+.cheer .armR{animation:wv .3s infinite alternate}
+@keyframes chL{from{transform:rotate(150deg)}to{transform:rotate(100deg)}}
+.blanket{position:fixed;left:0;bottom:0;width:100%;height:40vh;background:#3f7fe0;border-radius:40px 40px 0 0;z-index:3;transform:translateX(-110%);animation:bl 2.6s ease-in-out forwards;padding-top:14px;font-weight:900;font-size:20px}
+@keyframes bl{30%,70%{transform:none}to{transform:translateX(110%)}}
+.conf{position:fixed;top:-12px;width:9px;height:14px;border-radius:2px;z-index:9;pointer-events:none;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(105vh) rotate(720deg)}}
+</style></head>
+<body>
+
+<!-- SCREEN 1: OPENING -->
+<div class="screen active" id="s1"><div class="card">
+<p class="txt" style="margin-top:0">Areyy aaj to Mylaaa ache mood me nhi haiii 😭 aaj gnd na mar leee ab to Minions ko bulana padegaaa, vohi kuch kr sakte hai ab 😭</p>
+<button type="button" class="large" id="btnCall">MINIONS KO BULAAA 😭</button></div></div>
+
+<!-- SCREEN 2: MINION ENTRY -->
+<div class="screen" id="s2"><div class="card">
+<p class="txt" id="e0" style="margin-top:0">Minions aa rahe hain…</p>
+<h1 class="big hide" id="e1">GUYS PROBLEM HAI 🚨</h1>
+<p class="txt hide" id="e2">MYLA KA MOOD KHARAB HAI 😭</p>
+<p class="txt hide" id="e3">Emergency Minion meeting officially started.</p>
+<button type="button" class="large hide" id="btnStart">MISSION START</button></div></div>
+
+<!-- SCREEN 3: OPERATION MYLA SMILE -->
+<div class="screen" id="s3"><div class="card">
+<h1 class="big">OPERATION MYLA SMILE</h1>
+<p class="txt">Minions ab full effort karenge 😤</p>
+<p id="msg"></p>
+<button type="button" id="btnFunny">EK FUNNY MINION BHEJO 😂</button>
+<button type="button" class="alt" id="btnHug">HUG BHEJO 🫂</button>
+<button type="button" id="btnEffort">AUR EFFORT KARO 😭</button>
+<button type="button" class="alt" id="btnSad">ABHI BHI MOOD KHARAB HAI 😭</button>
+<div><button type="button" id="btnCheck" style="background:#fff;box-shadow:0 5px 0 #aaa">MOOD CHECK KARO 👀</button></div></div></div>
+
+<!-- SCREEN 4: MOOD CHECK -->
+<div class="screen" id="s4"><div class="card">
+<h1 class="big">ab sach sach batao Mylaaa 👀</h1>
+<p class="txt">mood thoda theek hua ya nahi?</p>
+<button type="button" id="btnYes">HAAN THODI SI SMILE AA GAYI</button>
+<button type="button" class="alt" id="btnNo">NAHI 😭</button></div></div>
+
+<!-- SCREEN 5: NO -->
+<div class="screen" id="s5"><div class="card">
+<h1 class="big">WHATTTTT 😭 BOSS YE TO SERIOUS CASE HAI.</h1>
+<p class="txt">MINIONS EK AUR ATTEMPT KARENGE.</p></div></div>
+
+<!-- SCREEN 6: PHOTO REVEAL -->
+<div class="screen" id="s6"><div class="card">
+<h1 class="big">YAYYYYYYYYYYYYY 😭💛<br>MOOD THIK HOGYAAAAAAAA<br>FINALLYYYYYYYYY</h1>
+<!-- Replace myra.jpg with Myra's photo (put myra.jpg in the same folder as this file). -->
+<img id="photo" class="photo" src="myra.jpg" alt="Myra" style="visibility:hidden">
+<p class="txt">dekhaaaa, Minions ko bulana pada but kaam ho gaya 😭</p>
+<button type="button" class="large" id="btnComplete">MISSION COMPLETE ✅</button></div></div>
+
+<!-- SCREEN 7: FINAL -->
+<div class="screen" id="s7"><div class="card">
+<h1 class="big">MISSION COMPLETE ✅</h1>
+<p class="txt">ab aise hi thodi thodi smile karte rehna Mylaaa 😭💛</p>
+<p class="txt" style="opacity:.75">Minions officially off duty.</p></div></div>
+
+<div id="crew"></div>
+
+<script>
+var crew = document.getElementById('crew');
+var COL = ['#ffd93b','#3a7be0','#ffffff','#ff8a3d'];
+
+function $(id){ return document.getElementById(id); }
+function go(id){
+  var s = document.querySelectorAll('.screen');
+  for (var i=0;i<s.length;i++) s[i].classList.remove('active');
+  $(id).classList.add('active');
+  window.scrollTo(0,0);
+}
+function svg(one){
+  var eyes = one
+   ? '<circle cx="50" cy="48" r="19" fill="#9aa3b2" stroke="#555" stroke-width="3"/><circle cx="50" cy="48" r="13" fill="#fff"/><circle cx="50" cy="48" r="5.5" fill="#4a2c12"/>'
+   : '<circle cx="36" cy="48" r="15" fill="#9aa3b2" stroke="#555" stroke-width="3"/><circle cx="64" cy="48" r="15" fill="#9aa3b2" stroke="#555" stroke-width="3"/><circle cx="36" cy="48" r="10" fill="#fff"/><circle cx="64" cy="48" r="10" fill="#fff"/><circle cx="36" cy="48" r="4.5" fill="#4a2c12"/><circle cx="64" cy="48" r="4.5" fill="#4a2c12"/>';
+  return '<svg viewBox="0 0 100 160"><path d="M50 22V8M42 22L36 10M58 22L64 10" stroke="#222" stroke-width="1.5"/>'
+  +'<rect class="armL" x="4" y="78" width="14" height="38" rx="7" fill="#ffd93b" style="transform:rotate(12deg)"/>'
+  +'<rect class="armR" x="82" y="78" width="14" height="38" rx="7" fill="#ffd93b" style="transform:rotate(-12deg)"/>'
+  +'<rect x="24" y="140" width="20" height="14" rx="6" fill="#222"/><rect x="56" y="140" width="20" height="14" rx="6" fill="#222"/>'
+  +'<rect x="15" y="18" width="70" height="128" rx="35" fill="#ffd93b"/>'
+  +'<path d="M15 102H85V108A35 35 0 0 1 50 146A35 35 0 0 1 15 108Z" fill="#3a7be0"/><rect x="38" y="112" width="24" height="16" rx="4" fill="#2a5cb0"/>'
+  +'<rect x="14" y="43" width="72" height="9" fill="#2b2b2b"/>'+eyes
+  +'<path d="M38 80Q50 92 62 80" fill="none" stroke="#222" stroke-width="3" stroke-linecap="round"/></svg>';
+}
+function addM(anim){
+  var d = document.createElement('div');
+  d.className = 'm ' + anim;
+  d.innerHTML = svg(Math.random() < 0.4);
+  crew.appendChild(d);
+  return d;
+}
+function act(cls, ms, list){
+  var arr = list || Array.prototype.slice.call(crew.children);
+  arr.forEach(function(m){ m.classList.add(cls); setTimeout(function(){ m.classList.remove(cls); }, ms); });
+}
+function say(m, t){
+  if(!m) return;
+  var b = document.createElement('span'); b.className='bubble'; b.textContent=t; m.appendChild(b);
+  setTimeout(function(){ if(b.parentNode) b.parentNode.removeChild(b); }, 1800);
+}
+function confetti(n){
+  for (var i=0;i<n;i++){
+    var c = document.createElement('i'); c.className='conf';
+    c.style.left = Math.random()*100+'vw'; c.style.background = COL[i%4];
+    c.style.animationDuration = (1.8+Math.random()*2)+'s';
+    document.body.appendChild(c);
+    (function(x){ setTimeout(function(){ if(x.parentNode) x.parentNode.removeChild(x); }, 4200); })(c);
+  }
+}
+function randM(){ return crew.children[Math.floor(Math.random()*crew.children.length)]; }
+function msg(t){ $('msg').textContent = t; }
+
+/* 1 -> 2 : minions enter */
+$('btnCall').addEventListener('click', function(){
+  go('s2');
+  if (crew.children.length === 0){
+    addM('runL');
+    setTimeout(function(){ addM('stumbleR'); }, 700);
+    setTimeout(function(){ addM('popUp'); }, 1400);
+  }
+  setTimeout(function(){ act('wave', 2500); }, 2200);
+  setTimeout(function(){ $('e0').classList.add('hide'); $('e1').classList.remove('hide'); act('panic', 1200); }, 2400);
+  setTimeout(function(){ $('e2').classList.remove('hide'); }, 3300);
+  setTimeout(function(){ $('e3').classList.remove('hide'); $('btnStart').classList.remove('hide'); act('jump', 1800); }, 4300);
+});
+
+/* 2 -> 3 */
+$('btnStart').addEventListener('click', function(){ msg(''); go('s3'); act('cheer', 2000); });
+
+/* screen 3 interactions */
+$('btnFunny').addEventListener('click', function(){
+  msg('MINION NE APNA SABSE FUNNY FACE NIKAL DIYA 😭😂');
+  var m = randM(); act('flip', 2000, [m]); say(m, 'BANANAAA!');
+});
+$('btnHug').addEventListener('click', function(){
+  msg('MINION NE EK BADA SA VIRTUAL HUG BHEJA 🫂💛');
+  var bl = document.createElement('div'); bl.className='blanket'; bl.textContent='giant hug 🫂';
+  document.body.appendChild(bl);
+  setTimeout(function(){ act('squish', 2100); }, 900);
+  setTimeout(function(){ if(bl.parentNode) bl.parentNode.removeChild(bl); }, 2800);
+});
+$('btnEffort').addEventListener('click', function(){
+  msg('THEEK HAI BOSS 😭 MINIONS AB 200% EFFORT KARENGE');
+  act('dance', 3000); confetti(35);
+});
+$('btnSad').addEventListener('click', function(){
+  msg('WHATTT 😭 MINIONS KO AUR MEHNAT KARNI PADEGI');
+  act('panic', 1200);
+  if (crew.children.length < 9) addM('popUp');
+  setTimeout(function(){ go('s4'); }, 1000);
+});
+$('btnCheck').addEventListener('click', function(){ go('s4'); });
+
+/* mood check */
+$('btnNo').addEventListener('click', function(){
+  go('s5'); act('panic', 2500);
+  setTimeout(function(){ act('flip', 1800); confetti(20); }, 1200);
+  setTimeout(function(){ msg(''); go('s3'); }, 3400);
+});
+$('btnYes').addEventListener('click', function(){
+  var p = $('photo');
+  p.style.visibility = 'visible';
+  p.classList.remove('show'); void p.offsetWidth; p.classList.add('show');
+  while (crew.children.length < 6) addM('popUp');
+  go('s6');
+  act('jump', 2000); act('cheer', 8000);
+  setTimeout(function(){ act('dance', 6000); }, 2000);
+  confetti(80); setTimeout(function(){ confetti(60); }, 1800);
+});
+
+/* reveal -> final */
+$('btnComplete').addEventListener('click', function(){
+  go('s7'); act('cheer', 12000); act('dance', 12000); confetti(90);
+});
+</script>
+</body></html>
